@@ -1,0 +1,49 @@
+{%- comment -%}
+  AUREA Developer Stack - Wishlist Header Link
+  Shows heart icon with count badge in header
+  Per app.md Patch #1
+  
+  Usage: {% render 'wishlist-header-link' %}
+{%- endcomment -%}
+
+<a href="/pages/wishlist" class="header-wishlist-link" title="View Wishlist">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+  <span data-wishlist-count class="wishlist-count-badge" style="display:none;">0</span>
+</a>
+
+<style>
+.header-wishlist-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.header-wishlist-link:hover {
+  color: #d4a574;
+}
+
+.wishlist-count-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  background: #d4a574;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+</style>

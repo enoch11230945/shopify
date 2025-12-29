@@ -1,4 +1,6 @@
-<script type="text/javascript">
-  console.log("Dumping");
-  console.log({{ dump | json }});
-</script>
+{%- comment -%}
+  DISABLED: This debug snippet should NEVER be used in production.
+  It exposes internal data structures to the browser console.
+  
+  If you need to debug, use Shopify's built-in tools or remove this file.
+{%- endcomment -%}

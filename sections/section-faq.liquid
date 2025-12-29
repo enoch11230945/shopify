@@ -1,0 +1,332 @@
+{%- comment -%}
+  London_Emotion_Engine - FAQ Section
+  Answers common questions for jewelry gift purchases
+  Reduces customer support queries and builds trust
+{%- endcomment -%}
+
+<section class="faq-section section-style-{{ section.id }}"
+         style="background-color: {{ section.settings.bg_color }}; padding: {{ section.settings.padding }};">
+  <div class="container">
+    
+    <div class="faq-header text-center">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="faq-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      
+      <h2 class="faq-title">{{ section.settings.title }}</h2>
+      
+      {%- if section.settings.subtitle != blank -%}
+        <p class="faq-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+    
+    <div class="faq-list">
+      {%- for block in section.blocks -%}
+        <details class="faq-item" {{ block.shopify_attributes }}>
+          <summary class="faq-question">
+            <span>{{ block.settings.question }}</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+    
+    {%- if section.settings.show_contact -%}
+      <div class="faq-contact text-center">
+        <p>{{ section.settings.contact_text }}</p>
+        <a href="{{ section.settings.contact_link }}" class="btn btn-outline faq-contact-btn">
+          {{ section.settings.contact_button }}
+        </a>
+      </div>
+    {%- endif -%}
+    
+  </div>
+</section>
+
+<style>
+.faq-section {
+  padding: 80px 0;
+}
+
+.faq-header {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.faq-eyebrow {
+  display: inline-block;
+  color: #d4a574;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.faq-title {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+}
+
+.faq-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: #d4a574;
+}
+
+.faq-item[open] {
+  border-color: #d4a574;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question span {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  color: #d4a574;
+  transition: transform 0.3s ease;
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+.faq-answer p {
+  margin: 0 0 1rem;
+}
+
+.faq-answer p:last-child {
+  margin: 0;
+}
+
+.faq-contact {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.faq-contact p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.faq-contact-btn {
+  border: 2px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.faq-contact-btn:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 50px 0;
+  }
+  
+  .faq-question {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .faq-answer {
+    padding: 0 1.25rem 1.25rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "section section--faq",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#faf9f8"
+    },
+    {
+      "type": "text",
+      "id": "padding",
+      "label": "Padding",
+      "default": "80px 0"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Questions & Answers"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything you need to know before ordering"
+    },
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact",
+      "label": "Show contact section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact text",
+      "default": "Still have questions? We're here to help."
+    },
+    {
+      "type": "text",
+      "id": "contact_button",
+      "label": "Button text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does delivery take?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>We ship from our UK facility. Standard delivery takes 2-3 working days via Royal Mail 2nd Class. For next-day delivery, choose Express at checkout (order before 2pm).</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>We ship from our UK facility. Standard delivery takes 2-3 working days via Royal Mail 2nd Class. You'll receive tracking information as soon as your order ships.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What's included in the box?",
+            "answer": "<p>Every order includes your chosen necklace, a beautifully designed message card, and a luxury presentation box. It arrives completely gift-ready—no additional wrapping needed.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I customise the message card?",
+            "answer": "<p>We offer a curated selection of message cards designed for specific occasions (Valentine's Day, Mother's Day, anniversaries, etc.). Each message has been carefully crafted to express genuine emotion. Simply choose the one that resonates with you.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is the necklace good quality?",
+            "answer": "<p>Absolutely. Our necklaces feature either 14K white gold finish over stainless steel, or genuine sterling silver with 1-carat moissanite stones. Moissanite has a higher refractive index than diamond, meaning it sparkles even more brilliantly.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What if they don't like it?",
+            "answer": "<p>We offer a 30-day returns policy. If for any reason they're not delighted with their gift, simply return it in its original condition for a full refund. No questions asked.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Will it arrive in time for Valentine's Day?",
+            "answer": "<p>To guarantee delivery by Valentine's Day, please order by 1st February. Orders placed after this date may not arrive in time. We'll display a countdown on the website so you know exactly how much time you have.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

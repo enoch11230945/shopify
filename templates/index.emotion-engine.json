@@ -1,0 +1,347 @@
+{
+  "sections": {
+    "hero": {
+      "type": "section-hero-emotional",
+      "settings": {
+        "hero_height": 85,
+        "text_alignment": "center",
+        "overlay_color": "#000000",
+        "overlay_opacity": 45,
+        "occasion_badge": "UK Stock • Ships in 2-3 Days",
+        "heading": "Say What You Feel",
+        "subheading": "Beautiful necklaces paired with heartfelt message cards. Because sometimes, you need a little help saying 'I love you'.",
+        "emotional_quote": "I can't promise to be here for the rest of your life, but I can promise to love you for the rest of mine.",
+        "button_text": "Shop the Collection",
+        "button_link": "shopify://collections/all",
+        "secondary_button_text": "View Message Cards",
+        "secondary_button_link": "",
+        "show_countdown": false,
+        "countdown_date": "",
+        "countdown_occasion": "",
+        "show_scroll_indicator": true
+      }
+    },
+    "trust-badges": {
+      "type": "section-trust-badges",
+      "settings": {
+        "bg_section": "#ffffff",
+        "padding_section": "40px 0"
+      },
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "title": "Ships from UK",
+            "text": "2-3 day delivery",
+            "icon_type": "delivery"
+          }
+        },
+        "badge-2": {
+          "type": "badge",
+          "settings": {
+            "title": "Gift Ready",
+            "text": "Luxury box included",
+            "icon_type": "gift"
+          }
+        },
+        "badge-3": {
+          "type": "badge",
+          "settings": {
+            "title": "30-Day Returns",
+            "text": "No questions asked",
+            "icon_type": "returns"
+          }
+        },
+        "badge-4": {
+          "type": "badge",
+          "settings": {
+            "title": "Secure Checkout",
+            "text": "SSL encrypted",
+            "icon_type": "secure"
+          }
+        }
+      },
+      "block_order": [
+        "badge-1",
+        "badge-2",
+        "badge-3",
+        "badge-4"
+      ]
+    },
+    "product-value": {
+      "type": "section-product-value",
+      "settings": {
+        "bg_color": "#faf9f8",
+        "show_guarantee": true,
+        "guarantee_title": "30-Day Money Back Guarantee",
+        "guarantee_text": "If they're not absolutely delighted, return it for a full refund. No questions asked."
+      },
+      "blocks": {
+        "product-1": {
+          "type": "product_card",
+          "settings": {
+            "tier": "standard",
+            "badge": "Best Value",
+            "product_name": "Love Knot Necklace",
+            "compare_price": "£49.99",
+            "price": "£24.99",
+            "description": "The iconic symbol of eternal love. 14K white gold finish over 316L surgical stainless steel.",
+            "feature_1": "316L Stainless Steel",
+            "feature_2": "PVD Gold Plating",
+            "feature_3": "Waterproof & Tarnish-Free",
+            "feature_4": "Gift Box + Message Card"
+          }
+        },
+        "product-2": {
+          "type": "product_card",
+          "settings": {
+            "tier": "premium",
+            "badge": "Premium",
+            "product_name": "Moissanite Solitaire",
+            "compare_price": "£99.99",
+            "price": "£59.99",
+            "description": "1 Carat GRA Certified Moissanite. More brilliant than diamond, at a fraction of the cost.",
+            "feature_1": "1ct GRA Certified Stone",
+            "feature_2": "Sterling Silver (925)",
+            "feature_3": "Passes Diamond Tester",
+            "feature_4": "Certificate of Authenticity"
+          }
+        }
+      },
+      "block_order": [
+        "product-1",
+        "product-2"
+      ]
+    },
+    "message-cards": {
+      "type": "section-message-cards",
+      "settings": {
+        "bg_section": "#ffffff",
+        "padding_section": "80px 0",
+        "container_width": "container",
+        "section_title": "Choose Your Message",
+        "section_subtitle": "Each card is designed to express what's in your heart"
+      },
+      "blocks": {
+        "card-1": {
+          "type": "message_card",
+          "settings": {
+            "occasion": "dad_to_daughter",
+            "occasion_label": "Dad to Daughter",
+            "card_title": "To My Beautiful Daughter",
+            "message_preview": "I can't promise to be here for the rest of your life, but I can promise to love you for the rest of mine.",
+            "bg_color": "#faf9f8",
+            "featured": true
+          }
+        },
+        "card-2": {
+          "type": "message_card",
+          "settings": {
+            "occasion": "soulmate",
+            "occasion_label": "To My Soulmate",
+            "card_title": "Forever Yours",
+            "message_preview": "You still put up with me after all these years. Cheers for that.",
+            "bg_color": "#faf9f8"
+          }
+        },
+        "card-3": {
+          "type": "message_card",
+          "settings": {
+            "occasion": "mum_to_daughter",
+            "occasion_label": "Mum to Daughter",
+            "card_title": "My Precious Girl",
+            "message_preview": "You are my yesterday, my today, and my always.",
+            "bg_color": "#faf9f8"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3"
+      ]
+    },
+    "social-proof": {
+      "type": "section-social-proof",
+      "settings": {
+        "bg_color": "#faf9f8",
+        "padding": "80px 0",
+        "rating_text": "4.9/5 from 500+ happy customers",
+        "title": "What Our Customers Say",
+        "subtitle": "Real reviews from real people"
+      },
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "headline": "She cried when she read the card",
+            "review_text": "I'm rubbish at expressing how I feel, but the message on the card said exactly what I wanted to say. When she read it, she started crying. Best gift I've ever given.",
+            "author_name": "James W.",
+            "author_location": "Manchester, UK",
+            "verified": true,
+            "product_purchased": "Love Knot Necklace"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "headline": "Arrived in 2 days!",
+            "review_text": "Ordered on Tuesday, arrived Thursday. The packaging was gorgeous—didn't need to wrap it at all. My mum absolutely loved the necklace and the message card made her day.",
+            "author_name": "Emma T.",
+            "author_location": "London, UK",
+            "verified": true,
+            "product_purchased": "Interlocking Hearts"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "headline": "Worth every penny",
+            "review_text": "The Moissanite sparkles more than my mate's diamond ring and cost a fraction of the price. She keeps getting compliments and I keep getting the credit. Win-win.",
+            "author_name": "David P.",
+            "author_location": "Birmingham, UK",
+            "verified": true,
+            "product_purchased": "Moissanite Solitaire"
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3"
+      ]
+    },
+    "emotional-story": {
+      "type": "section-emotional-story",
+      "settings": {
+        "bg_color": "#ffffff",
+        "eyebrow": "Our Story",
+        "heading": "Because Saying 'I Love You' Shouldn't Be Hard",
+        "content": "<p>We get it. You love them. But when it comes to saying it out loud, the words get stuck somewhere between your heart and your mouth.</p><p>That's where we come in. Our necklaces come paired with beautifully written message cards that say exactly what you're feeling—so you don't have to find the words yourself.</p><p>It's not about the jewellery. It's about the moment they read that card and feel how much they mean to you.</p>",
+        "quote": "She cried when she read the card. That's when I knew I'd got it right.",
+        "quote_author": "James, Manchester",
+        "button_text": "View Our Collection",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "uk-delivery": {
+      "type": "section-uk-delivery",
+      "settings": {
+        "bg_color": "#faf9f8",
+        "padding": "60px 0",
+        "section_title": "UK Stock • Fast Delivery",
+        "show_disclaimer": true,
+        "disclaimer_text": "All items ship from our UK facility. Standard delivery 2-3 working days via Royal Mail 2nd Class."
+      },
+      "blocks": {
+        "option-1": {
+          "type": "delivery_option",
+          "settings": {
+            "icon_type": "standard",
+            "title": "UK Stock",
+            "delivery_time": "2-3 days",
+            "description": "Ships from our UK facility via Royal Mail 2nd Class",
+            "price": "FREE",
+            "highlight": true
+          }
+        },
+        "option-2": {
+          "type": "delivery_option",
+          "settings": {
+            "icon_type": "express",
+            "title": "Express Delivery",
+            "delivery_time": "Next day",
+            "description": "Royal Mail Tracked 24 - order before 2pm",
+            "price": "+£3.50"
+          }
+        },
+        "option-3": {
+          "type": "delivery_option",
+          "settings": {
+            "icon_type": "gift",
+            "title": "Gift Ready",
+            "delivery_time": "Included",
+            "description": "Luxury box, velvet pouch, and message card",
+            "price": "FREE"
+          }
+        }
+      },
+      "block_order": [
+        "option-1",
+        "option-2",
+        "option-3"
+      ]
+    },
+    "faq": {
+      "type": "section-faq",
+      "settings": {
+        "bg_color": "#ffffff",
+        "padding": "80px 0",
+        "eyebrow": "Questions & Answers",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Everything you need to know before ordering",
+        "show_contact": true,
+        "contact_text": "Still have questions? We're here to help.",
+        "contact_button": "Contact Us",
+        "contact_link": "shopify://pages/contact"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>We ship from our UK facility. Standard delivery takes 2-3 working days via Royal Mail 2nd Class. For next-day delivery, choose Express at checkout (order before 2pm).</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "What's included in the box?",
+            "answer": "<p>Every order includes your chosen necklace, a beautifully designed message card, a velvet pouch, and a luxury presentation box. It arrives completely gift-ready—no additional wrapping needed.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "Is the necklace good quality?",
+            "answer": "<p>Absolutely. Our Love Knot necklaces are made from 316L surgical stainless steel with PVD 18K gold plating. They're waterproof, tarnish-free, and hypoallergenic. Our Moissanite range uses 925 sterling silver with GRA-certified 1-carat stones.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq",
+          "settings": {
+            "question": "What if they don't like it?",
+            "answer": "<p>We offer a 30-day returns policy. If for any reason they're not delighted with their gift, simply return it in its original condition for a full refund. No questions asked.</p>"
+          }
+        },
+        "faq-5": {
+          "type": "faq",
+          "settings": {
+            "question": "What is Moissanite?",
+            "answer": "<p>Moissanite is a lab-created gemstone (silicon carbide) that has a higher refractive index than diamond, meaning it sparkles even more brilliantly. It passes thermal conductivity diamond testers and costs a fraction of the price. Each stone comes with a GRA Certificate of Authenticity.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4",
+        "faq-5"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "trust-badges",
+    "product-value",
+    "message-cards",
+    "social-proof",
+    "emotional-story",
+    "uk-delivery",
+    "faq"
+  ]
+}

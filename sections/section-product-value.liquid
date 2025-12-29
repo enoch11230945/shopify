@@ -1,0 +1,460 @@
+{%- comment -%}
+  London_Emotion_Engine v2.0 - Product Value Proposition
+  Displays price anchoring, key features, and local inventory badge
+  Based on PRD v2.0 Unit Economics (Section 6)
+{%- endcomment -%}
+
+<section class="product-value section-style-{{ section.id }}"
+         style="background: {{ section.settings.bg_color }};">
+  <div class="container">
+    
+    <div class="value-grid">
+      
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          
+          {%- when 'product_card' -%}
+            <div class="value-card product-tier {{ block.settings.tier }}" {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.badge != blank -%}
+                <span class="tier-badge {{ block.settings.tier }}">{{ block.settings.badge }}</span>
+              {%- endif -%}
+              
+              <h3 class="product-name">{{ block.settings.product_name }}</h3>
+              
+              <div class="price-display">
+                {%- if block.settings.compare_price != blank -%}
+                  <span class="compare-price">{{ block.settings.compare_price }}</span>
+                {%- endif -%}
+                <span class="current-price">{{ block.settings.price }}</span>
+              </div>
+              
+              <p class="product-desc">{{ block.settings.description }}</p>
+              
+              <ul class="feature-list">
+                {%- if block.settings.feature_1 != blank -%}
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>{{ block.settings.feature_1 }}</li>
+                {%- endif -%}
+                {%- if block.settings.feature_2 != blank -%}
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>{{ block.settings.feature_2 }}</li>
+                {%- endif -%}
+                {%- if block.settings.feature_3 != blank -%}
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>{{ block.settings.feature_3 }}</li>
+                {%- endif -%}
+                {%- if block.settings.feature_4 != blank -%}
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>{{ block.settings.feature_4 }}</li>
+                {%- endif -%}
+              </ul>
+              
+              <a href="{{ block.settings.product_link }}" class="btn btn-{{ block.settings.tier }} value-cta">
+                {{ block.settings.cta_text | default: 'Shop Now' }}
+              </a>
+              
+              <div class="product-meta">
+                <span class="stock-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="6"/>
+                  </svg>
+                  In Stock - Ships from UK
+                </span>
+              </div>
+              
+            </div>
+          
+        {%- endcase -%}
+      {%- endfor -%}
+      
+    </div>
+    
+    {%- if section.settings.show_guarantee -%}
+      <div class="value-guarantee">
+        <div class="guarantee-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="guarantee-content">
+          <h4>{{ section.settings.guarantee_title }}</h4>
+          <p>{{ section.settings.guarantee_text }}</p>
+        </div>
+      </div>
+    {%- endif -%}
+    
+  </div>
+</section>
+
+<style>
+.product-value {
+  padding: 80px 0;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.value-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+  position: relative;
+  border: 2px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.value-card.premium {
+  border-color: #d4a574;
+  background: linear-gradient(180deg, #fff 0%, #fdfaf7 100%);
+}
+
+.tier-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.4rem 1.25rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tier-badge.premium {
+  background: linear-gradient(135deg, #d4a574, #c49464);
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 1rem 0 0.75rem;
+}
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.compare-price {
+  font-size: 1.25rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.current-price {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.product-desc {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  text-align: left;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.feature-list svg {
+  color: #d4a574;
+  flex-shrink: 0;
+}
+
+.value-cta {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-standard {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+}
+
+.btn-standard:hover {
+  background: #333;
+  color: #fff;
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #d4a574, #c49464);
+  color: #fff;
+  border: none;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
+  color: #fff;
+}
+
+.product-meta {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #2ecc71;
+  font-weight: 500;
+}
+
+.stock-badge svg {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.value-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guarantee-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4a574;
+  flex-shrink: 0;
+}
+
+.guarantee-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.25rem;
+}
+
+.guarantee-content p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .product-value {
+    padding: 50px 0;
+  }
+  
+  .value-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .value-guarantee {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Product Value",
+  "tag": "section",
+  "class": "section section--product-value",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#faf9f8"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_title",
+      "label": "Guarantee title",
+      "default": "30-Day Money Back Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "If they're not absolutely delighted, return it for a full refund. No questions asked."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Tier",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tier",
+          "label": "Tier style",
+          "options": [
+            { "value": "standard", "label": "Standard" },
+            { "value": "premium", "label": "Premium" }
+          ],
+          "default": "standard"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text",
+          "default": "Best Value"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name",
+          "default": "Love Knot Necklace"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at price",
+          "default": "£49.99"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "£24.99"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "14K white gold finish over 316L stainless steel. Built to last forever."
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "default": "316L Stainless Steel"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "default": "PVD Gold Plating"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "default": "Waterproof & Tarnish-Free"
+        },
+        {
+          "type": "text",
+          "id": "feature_4",
+          "label": "Feature 4",
+          "default": "Message Card Included"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "Product link"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button text",
+          "default": "Shop Now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Value",
+      "blocks": [
+        {
+          "type": "product_card",
+          "settings": {
+            "tier": "standard",
+            "badge": "Best Value",
+            "product_name": "Love Knot Necklace",
+            "compare_price": "£49.99",
+            "price": "£24.99",
+            "description": "The iconic symbol of eternal love. 14K white gold finish over 316L surgical stainless steel.",
+            "feature_1": "316L Stainless Steel",
+            "feature_2": "PVD Gold Plating",
+            "feature_3": "Waterproof & Tarnish-Free",
+            "feature_4": "Gift Box + Message Card"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "tier": "premium",
+            "badge": "Premium",
+            "product_name": "Moissanite Solitaire",
+            "compare_price": "£99.99",
+            "price": "£59.99",
+            "description": "1 Carat GRA Certified Moissanite. More brilliant than diamond, at a fraction of the cost.",
+            "feature_1": "1ct GRA Certified Stone",
+            "feature_2": "Sterling Silver (925)",
+            "feature_3": "Passes Diamond Tester",
+            "feature_4": "Certificate of Authenticity"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

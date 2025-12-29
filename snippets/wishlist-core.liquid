@@ -1,0 +1,268 @@
+{%- comment -%}
+  AUREA Developer Stack - Wishlist Core JavaScript
+  localStorage-based wishlist with zero dependencies
+  Per app.md Patch #1
+  
+  Include in theme.liquid: {% render 'wishlist-core' %}
+{%- endcomment -%}
+
+<script>
+(function() {
+  'use strict';
+  
+  const WISHLIST_KEY = 'aurea_wishlist';
+  
+  // ============================================
+  // Core Wishlist API
+  // ============================================
+  
+  window.AureaWishlist = {
+    
+    /**
+     * Get all wishlisted product IDs
+     * @returns {Array} Array of product IDs
+     */
+    getItems: function() {
+      try {
+        const data = localStorage.getItem(WISHLIST_KEY);
+        return data ? JSON.parse(data) : [];
+      } catch (e) {
+        console.warn('Wishlist: Failed to read localStorage');
+        return [];
+      }
+    },
+    
+    /**
+     * Check if product is in wishlist
+     * @param {string|number} productId 
+     * @returns {boolean}
+     */
+    has: function(productId) {
+      const items = this.getItems();
+      return items.includes(String(productId));
+    },
+    
+    /**
+     * Add product to wishlist
+     * @param {string|number} productId 
+     * @returns {boolean} Success
+     */
+    add: function(productId) {
+      try {
+        const items = this.getItems();
+        const id = String(productId);
+        if (!items.includes(id)) {
+          items.push(id);
+          localStorage.setItem(WISHLIST_KEY, JSON.stringify(items));
+          this._dispatchEvent('add', id);
+          this._updateCount();
+        }
+        return true;
+      } catch (e) {
+        console.warn('Wishlist: Failed to add item');
+        return false;
+      }
+    },
+    
+    /**
+     * Remove product from wishlist
+     * @param {string|number} productId 
+     * @returns {boolean} Success
+     */
+    remove: function(productId) {
+      try {
+        let items = this.getItems();
+        const id = String(productId);
+        items = items.filter(item => item !== id);
+        localStorage.setItem(WISHLIST_KEY, JSON.stringify(items));
+        this._dispatchEvent('remove', id);
+        this._updateCount();
+        return true;
+      } catch (e) {
+        console.warn('Wishlist: Failed to remove item');
+        return false;
+      }
+    },
+    
+    /**
+     * Toggle product in wishlist
+     * @param {string|number} productId 
+     * @returns {boolean} New state (true = added, false = removed)
+     */
+    toggle: function(productId) {
+      if (this.has(productId)) {
+        this.remove(productId);
+        return false;
+      } else {
+        this.add(productId);
+        return true;
+      }
+    },
+    
+    /**
+     * Get count of items in wishlist
+     * @returns {number}
+     */
+    count: function() {
+      return this.getItems().length;
+    },
+    
+    /**
+     * Clear entire wishlist
+     */
+    clear: function() {
+      try {
+        localStorage.removeItem(WISHLIST_KEY);
+        this._dispatchEvent('clear');
+        this._updateCount();
+      } catch (e) {
+        console.warn('Wishlist: Failed to clear');
+      }
+    },
+    
+    // Internal: Dispatch custom event
+    _dispatchEvent: function(action, productId) {
+      document.dispatchEvent(new CustomEvent('wishlist:change', {
+        detail: { action: action, productId: productId }
+      }));
+    },
+    
+    // Internal: Update count badges
+    _updateCount: function() {
+      const count = this.count();
+      document.querySelectorAll('[data-wishlist-count]').forEach(el => {
+        el.textContent = count;
+        el.style.display = count > 0 ? '' : 'none';
+      });
+    }
+  };
+  
+  // ============================================
+  // DOM Initialization
+  // ============================================
+  
+  function initWishlistButtons() {
+    document.querySelectorAll('[data-wishlist-btn]').forEach(btn => {
+      const productId = btn.dataset.productId;
+      
+      // Set initial state
+      if (AureaWishlist.has(productId)) {
+        btn.classList.add('is-wishlisted');
+      }
+      
+      // Handle click (only bind once)
+      if (!btn.dataset.wishlistBound) {
+        btn.dataset.wishlistBound = 'true';
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const isNowWishlisted = AureaWishlist.toggle(productId);
+          this.classList.toggle('is-wishlisted', isNowWishlisted);
+          
+          // Optional: Show toast notification
+          showWishlistToast(isNowWishlisted);
+        });
+      }
+    });
+    
+    // Update count badges on load
+    AureaWishlist._updateCount();
+  }
+  
+  function showWishlistToast(added) {
+    // Remove existing toast
+    const existingToast = document.querySelector('.wishlist-toast');
+    if (existingToast) existingToast.remove();
+    
+    const toast = document.createElement('div');
+    toast.className = 'wishlist-toast';
+    toast.innerHTML = added 
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Added to wishlist'
+      : 'Removed from wishlist';
+    
+    document.body.appendChild(toast);
+    
+    // Trigger animation
+    requestAnimationFrame(() => {
+      toast.classList.add('show');
+    });
+    
+    // Remove after 2s
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 2000);
+  }
+  
+  // Init on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWishlistButtons);
+  } else {
+    initWishlistButtons();
+  }
+  
+  // Re-init on AJAX navigation (for Quick View, etc)
+  document.addEventListener('shopify:section:load', initWishlistButtons);
+  
+})();
+</script>
+
+<style>
+/* Wishlist Toast Notification */
+.wishlist-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.wishlist-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.wishlist-toast svg {
+  color: #e74c3c;
+}
+
+/* Header Wishlist Link */
+.header-wishlist-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.header-wishlist-link [data-wishlist-count] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 18px;
+  height: 18px;
+  background: #d4a574;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

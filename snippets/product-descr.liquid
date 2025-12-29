@@ -175,7 +175,13 @@
 				{% if block.settings.autoViewing == false %}
                 autoViewing();
 				{% else %}
-                setInterval(function () {
+                // FIXED: Store interval ID for potential cleanup
+                var autoViewingInterval_{{ block.id | remove: '-' }} = setInterval(function () {
+                    // Check if element still exists before updating
+                    if ($(".current_viewing").length === 0) {
+                        clearInterval(autoViewingInterval_{{ block.id | remove: '-' }});
+                        return;
+                    }
                     autoViewing();
                 }, {{ block.settings.autoViewingInterval }});
 				{% endif %}

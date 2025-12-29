@@ -1,0 +1,258 @@
+{%- comment -%}
+  London_Emotion_Engine - Digital Gift Card / Love Voucher
+  Emergency fallback for orders that can't arrive in time
+  Per PRD Section 6.1: Emergency Digital Bridge
+  
+  Usage: {% render 'digital-gift-card', product: product, recipient_name: 'My Love' %}
+{%- endcomment -%}
+
+{%- assign recipient = recipient_name | default: 'My Love' -%}
+{%- assign product_title = product.title | default: 'Love Knot Necklace' -%}
+{%- assign product_price = product.price | money | default: '£39.99' -%}
+
+<div class="digital-gift-card" id="digitalGiftCard">
+  <div class="gift-card-inner">
+    
+    <div class="gift-card-header">
+      <span class="gift-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </span>
+      <p class="gift-type">Digital Love Voucher</p>
+    </div>
+    
+    <div class="gift-card-body">
+      <p class="gift-to">To: <strong>{{ recipient }}</strong></p>
+      
+      <h2 class="gift-message">
+        A special gift is on its way to you
+      </h2>
+      
+      <div class="gift-product-preview">
+        {%- if product.featured_image != blank -%}
+          <img src="{{ product.featured_image | image_url: width: 200 }}" alt="{{ product_title }}">
+        {%- else -%}
+          <div class="placeholder-img">💝</div>
+        {%- endif -%}
+        <div class="product-info">
+          <h3>{{ product_title }}</h3>
+          <p class="product-value">Value: {{ product_price }}</p>
+        </div>
+      </div>
+      
+      <p class="gift-note">
+        Your beautiful necklace and message card are being carefully prepared and will be with you soon. 
+        This voucher is proof that someone special is thinking of you today.
+      </p>
+    </div>
+    
+    <div class="gift-card-footer">
+      <p class="from-text">With love,</p>
+      <p class="from-name" id="senderName">________________</p>
+      <p class="date-text">{{ 'now' | date: "%d %B %Y" }}</p>
+    </div>
+    
+  </div>
+  
+  <button type="button" class="btn-print-voucher" onclick="printDigitalGiftCard()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+      <rect x="6" y="14" width="12" height="8"></rect>
+    </svg>
+    Print Voucher
+  </button>
+</div>
+
+<style>
+.digital-gift-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.gift-card-inner {
+  background: linear-gradient(135deg, #fdfcfb 0%, #f5f0eb 100%);
+  border: 2px solid #d4a574;
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(212, 165, 116, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.gift-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #d4a574, #c49464, #d4a574);
+}
+
+.gift-card-header {
+  margin-bottom: 1.5rem;
+}
+
+.gift-icon {
+  display: inline-block;
+  color: #d4a574;
+  margin-bottom: 0.5rem;
+}
+
+.gift-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #999;
+  margin: 0;
+}
+
+.gift-card-body {
+  margin-bottom: 2rem;
+}
+
+.gift-to {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.gift-to strong {
+  color: #1a1a1a;
+}
+
+.gift-message {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.gift-product-preview {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.gift-product-preview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.placeholder-img {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-size: 2rem;
+}
+
+.gift-product-preview .product-info {
+  text-align: left;
+}
+
+.gift-product-preview h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.25rem;
+}
+
+.gift-product-preview .product-value {
+  font-size: 0.85rem;
+  color: #d4a574;
+  margin: 0;
+  font-weight: 600;
+}
+
+.gift-note {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.gift-card-footer {
+  padding-top: 1.5rem;
+  border-top: 1px dashed #ddd;
+}
+
+.from-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.from-name {
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  margin: 0.5rem 0;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+}
+
+.date-text {
+  font-size: 0.75rem;
+  color: #999;
+  margin: 0;
+}
+
+.btn-print-voucher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem auto 0;
+  padding: 0.75rem 1.5rem;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-print-voucher:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+@media print {
+  .btn-print-voucher {
+    display: none !important;
+  }
+  
+  .digital-gift-card {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .gift-card-inner {
+    box-shadow: none;
+    border-width: 1px;
+  }
+}
+</style>
+
+<script>
+function printDigitalGiftCard() {
+  window.print();
+}
+</script>
