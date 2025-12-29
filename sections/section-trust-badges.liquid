@@ -1,0 +1,194 @@
+{%- comment -%}
+  London_Emotion_Engine - Trust Badges Section
+  Displays shipping, guarantee, and security badges for high-value jewelry purchases
+{%- endcomment -%}
+
+<section class="section-trust-badges" style="background-color: {{ section.settings.bg_color }}; padding: {{ section.settings.padding }};">
+  <div class="{{ section.settings.container_width }}">
+    <div class="trust-badges-grid row justify-content-center align-items-center text-center">
+      {%- for block in section.blocks -%}
+        <div class="col-6 col-md-3 mb-3 mb-md-0" {{ block.shopify_attributes }}>
+          <div class="trust-badge-item">
+            {%- if block.settings.icon_svg != blank -%}
+              <div class="badge-icon">
+                {{ block.settings.icon_svg }}
+              </div>
+            {%- elsif block.settings.icon_image != blank -%}
+              <div class="badge-icon">
+                <img src="{{ block.settings.icon_image | image_url: width: 48 }}" 
+                     alt="{{ block.settings.badge_title | escape }}"
+                     width="48" height="48"
+                     loading="lazy">
+              </div>
+            {%- else -%}
+              <div class="badge-icon badge-icon--default">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+            {%- endif -%}
+            <h3 class="badge-title">{{ block.settings.badge_title }}</h3>
+            {%- if block.settings.badge_text != blank -%}
+              <p class="badge-text">{{ block.settings.badge_text }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+.section-trust-badges {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.trust-badge-item {
+  padding: 1rem;
+}
+
+.trust-badge-item .badge-icon {
+  margin-bottom: 0.75rem;
+  color: #d4a574;
+}
+
+.trust-badge-item .badge-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.trust-badge-item .badge-icon img {
+  max-width: 48px;
+  height: auto;
+}
+
+.trust-badge-item .badge-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+.trust-badge-item .badge-text {
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .trust-badge-item {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .trust-badge-item .badge-title {
+    font-size: 0.75rem;
+  }
+  
+  .trust-badge-item .badge-text {
+    font-size: 0.7rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Trust Badges",
+  "tag": "section",
+  "class": "section section--trust-badges",
+  "settings": [
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        { "value": "container", "label": "Box" },
+        { "value": "container-fluid", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#faf9f8"
+    },
+    {
+      "type": "text",
+      "id": "padding",
+      "label": "Section padding",
+      "default": "30px 0"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_title",
+          "label": "Badge title",
+          "default": "Free UK Delivery"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "On all orders"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image"
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Badges",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "badge_title": "Free UK Delivery",
+            "badge_text": "On all orders",
+            "icon_svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8\"/></svg>"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "badge_title": "Luxury Gift Box",
+            "badge_text": "Ready to gift",
+            "icon_svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 8V4l-2-2-2 2v4\"/><rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8\"/><path d=\"M12 8v13\"/></svg>"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "badge_title": "30-Day Returns",
+            "badge_text": "Hassle-free",
+            "icon_svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 4v5h5\"/><path d=\"M20 20v-5h-5\"/><path d=\"M4 9c1.5-4 5.5-6 10-5 4 1 6.5 4.5 6 9\"/><path d=\"M20 15c-1.5 4-5.5 6-10 5-4-1-6.5-4.5-6-9\"/></svg>"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "badge_title": "Secure Checkout",
+            "badge_text": "SSL encrypted",
+            "icon_svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"10\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0110 0v4\"/></svg>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

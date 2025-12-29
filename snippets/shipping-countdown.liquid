@@ -1,0 +1,141 @@
+{%- comment -%}
+  London_Emotion_Engine - Shipping Countdown Snippet
+  Displays deadline for guaranteed arrival (Valentine's Day, Mother's Day, etc.)
+  
+  Usage: {% render 'shipping-countdown', deadline_date: '2026-02-07', occasion_name: "Valentine's Day" %}
+{%- endcomment -%}
+
+{%- assign deadline = deadline_date | default: '' -%}
+{%- assign occasion = occasion_name | default: 'the occasion' -%}
+
+{%- if deadline != blank -%}
+<div class="shipping-countdown" data-deadline="{{ deadline }}">
+  <div class="countdown-inner">
+    <svg class="countdown-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 6v6l4 2"/>
+    </svg>
+    <div class="countdown-text">
+      <span class="countdown-label">Order by <strong class="countdown-date"></strong> for guaranteed {{ occasion }} delivery</span>
+      <span class="countdown-timer">
+        <span class="days"></span>d 
+        <span class="hours"></span>h 
+        <span class="minutes"></span>m 
+        <span class="seconds"></span>s
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+.shipping-countdown {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.shipping-countdown .countdown-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shipping-countdown .countdown-icon {
+  flex-shrink: 0;
+  color: #d4a574;
+}
+
+.shipping-countdown .countdown-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shipping-countdown .countdown-label {
+  font-size: 0.85rem;
+}
+
+.shipping-countdown .countdown-label strong {
+  color: #d4a574;
+}
+
+.shipping-countdown .countdown-timer {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #d4a574;
+}
+
+.shipping-countdown.expired {
+  background: #8b0000;
+}
+
+.shipping-countdown.expired .countdown-timer {
+  display: none;
+}
+
+.shipping-countdown.expired .countdown-label::after {
+  content: " - ORDER NOW for fastest delivery";
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .shipping-countdown {
+    padding: 10px 15px;
+  }
+  
+  .shipping-countdown .countdown-label {
+    font-size: 0.75rem;
+  }
+  
+  .shipping-countdown .countdown-timer {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const countdownEl = document.querySelector('.shipping-countdown');
+  if (!countdownEl) return;
+  
+  const deadline = new Date(countdownEl.dataset.deadline + 'T23:59:59').getTime();
+  
+  function formatDate(date) {
+    const options = { day: 'numeric', month: 'short' };
+    return new Date(date).toLocaleDateString('en-GB', options);
+  }
+  
+  const dateDisplay = countdownEl.querySelector('.countdown-date');
+  if (dateDisplay) {
+    dateDisplay.textContent = formatDate(countdownEl.dataset.deadline);
+  }
+  
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = deadline - now;
+    
+    if (distance < 0) {
+      countdownEl.classList.add('expired');
+      return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    countdownEl.querySelector('.days').textContent = days;
+    countdownEl.querySelector('.hours').textContent = hours.toString().padStart(2, '0');
+    countdownEl.querySelector('.minutes').textContent = minutes.toString().padStart(2, '0');
+    countdownEl.querySelector('.seconds').textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+})();
+</script>
+{%- endif -%}

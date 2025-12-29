@@ -6,13 +6,13 @@
 					<div data-responsive-id="megamenu" data-responsive-layout="desktop">
 						{% if ss_item.menu_burger %}
 							<div class="d-xl-block d-none">
-								{% include 'burger-megamenu' %}
+								{% render 'burger-megamenu' %}
 							</div>
 							<div class="d-xl-none d-block">
-								{% include 'main-megamenu' %}
+								{% render 'main-megamenu' %}
 							</div>
 						{% else %}
-							{% include 'main-megamenu' %}
+							{% render 'main-megamenu' %}
 						{% endif %}
 					</div>
 				{% else %}
@@ -20,13 +20,13 @@
 						<div data-responsive-id="default-menu" data-responsive-layout="desktop">
 							{% if ss_item.menu_burger %}
 								<div class="d-xl-block d-none">
-									{% include 'burger-defmenu' %}
+									{% render 'burger-defmenu' %}
 								</div>
 								<div class="d-xl-none d-block">
-									{% include 'default-menu' %}
+									{% render 'default-menu' %}
 								</div>
 							{% else %}
-								{% include 'default-menu' %}
+								{% render 'default-menu' %}
 							{% endif %}
 
 						</div>
@@ -35,43 +35,43 @@
 			</div>
 			<div class="col-xl-3 d-xl-inline-flex justify-content-center">
 				<div data-responsive-id="logo-shop" data-responsive-layout="desktop">
-					{% include 'header-logo' %}
+					{% render 'header-logo' %}
 				</div>
 			</div>
 			<div class="col-xl d-flex justify-content-end align-items-center position-static header_items_wrapper">
 				{% if shop.customer_accounts_enabled and ss_item.header_user %}
 					<div class="item_left_spacer" data-responsive-id="header-account" data-responsive-layout="desktop">
-						{% include 'header-account' class: 'only_icon' %}
+						{% render 'header-account' class: 'only_icon' %}
 					</div>
 				{% endif %}
 				
 				{% if ss_item.header_search %}
 					<div class="item_left_spacer {% if toggle_search == false %}order-xl-first mr-xl-2{% endif %}" data-responsive-id="header-search" data-responsive-layout="desktop">
 						{% if toggle_search %}
-							{% include 'header-search' %}
+							{% render 'header-search' %}
 						{% else %}
-							{% include "search-content" %}
+							{% render "search-content" %}
 						{% endif %}
 					</div>
 				{% endif %}
 				
 				{% if ss_item.enable_header_wishlist %}
 					<div class="item_left_spacer" data-responsive-id="wishlist" data-responsive-layout="desktop">
-						{% include "header-wishlist" %}
+						{% render "header-wishlist" %}
 					</div>
 				{% endif %}
 				
 				{% if ss_item.header_cart %}
 					<div class="item_left_spacer" data-responsive-id="shopping-cart" data-responsive-layout="desktop">
 						{%- assign ajax_cart = ss_item.ajax_cart -%}
-						{% include 'header-cart' ajax: ajax_cart, style: 'type_2' %}
+						{% render 'header-cart' ajax: ajax_cart, style: 'type_2' %}
 					</div>
 				{% endif %}
 				
 				{% unless topbar and ss_item.header_tb_cs %}
 					{% if ss_item.use_currency_selector %}
 						<div class="item_left_spacer" data-responsive-id="currency-selector" data-responsive-layout="desktop">
-							{% include "header-currency" %}
+							{% render "header-currency" %}
 						</div>
 					{% endif %}
 				{% endunless %}

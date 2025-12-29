@@ -1,0 +1,219 @@
+{%- comment -%}
+  London_Emotion_Engine - Message Card Preview Section
+  Displays personalized message card options for emotional gift purchases
+{%- endcomment -%}
+
+{{ 'section-message-card.css' | asset_url | stylesheet_tag }}
+
+<section class="section-message-card section-style-{{ section.id }}" style="background-color: {{ section.settings.bg_section }}; padding: {{ section.settings.padding_section }};">
+  <div class="{{ section.settings.container_width }}">
+    {%- if section.settings.section_title != blank -%}
+      <div class="section-header text-center mb-4">
+        <h2 class="section-title h3">{{ section.settings.section_title }}</h2>
+        {%- if section.settings.section_subtitle != blank -%}
+          <p class="section-subtitle text-muted">{{ section.settings.section_subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="message-cards-grid row justify-content-center">
+      {%- for block in section.blocks -%}
+        <div class="col-12 col-md-6 col-lg-4 mb-4" {{ block.shopify_attributes }}>
+          <div class="message-card-item {% if block.settings.featured %}featured{% endif %}" data-occasion="{{ block.settings.occasion_type }}">
+            <div class="card-preview" style="background-color: {{ block.settings.card_bg_color }};">
+              {%- if block.settings.card_image != blank -%}
+                <img src="{{ block.settings.card_image | image_url: width: 400 }}" 
+                     alt="{{ block.settings.card_title | escape }}"
+                     loading="lazy"
+                     class="card-thumbnail">
+              {%- endif -%}
+              <div class="card-content">
+                <span class="occasion-badge">{{ block.settings.occasion_label }}</span>
+                <h3 class="card-title h6">{{ block.settings.card_title }}</h3>
+                <p class="card-message">{{ block.settings.card_message }}</p>
+              </div>
+            </div>
+            {%- if block.settings.card_link != blank -%}
+              <a href="{{ block.settings.card_link }}" class="btn btn-secondary btn-block mt-2">
+                {{ block.settings.button_text | default: 'Choose This Card' }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_custom_option -%}
+      <div class="custom-message-cta text-center mt-4">
+        <p class="h6">{{ section.settings.custom_message_title }}</p>
+        <p class="text-muted">{{ section.settings.custom_message_text }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Message Cards",
+  "tag": "section",
+  "class": "section section--message-cards",
+  "settings": [
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        { "value": "container", "label": "Box" },
+        { "value": "container-fluid", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "color",
+      "id": "bg_section",
+      "label": "Background colour",
+      "default": "#faf9f8"
+    },
+    {
+      "type": "text",
+      "id": "padding_section",
+      "label": "Section padding",
+      "default": "60px 0"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Choose Your Message"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Section subtitle",
+      "default": "Each necklace comes with a beautifully designed message card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_custom_option",
+      "label": "Show custom message option",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "custom_message_title",
+      "label": "Custom option title",
+      "default": "Want a personalised message?"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_message_text",
+      "label": "Custom option text",
+      "default": "Add your own words at checkout"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message_card",
+      "name": "Message Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "occasion_type",
+          "label": "Occasion type",
+          "options": [
+            { "value": "dad-daughter", "label": "Dad to Daughter" },
+            { "value": "mum-daughter", "label": "Mum to Daughter" },
+            { "value": "husband-wife", "label": "Husband to Wife" },
+            { "value": "boyfriend-girlfriend", "label": "Boyfriend to Girlfriend" },
+            { "value": "soulmate", "label": "Soulmate" },
+            { "value": "anniversary", "label": "Anniversary" },
+            { "value": "valentines", "label": "Valentine's Day" },
+            { "value": "mothers-day", "label": "Mother's Day" }
+          ],
+          "default": "soulmate"
+        },
+        {
+          "type": "text",
+          "id": "occasion_label",
+          "label": "Badge label",
+          "default": "To My Soulmate"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "For the One I Love"
+        },
+        {
+          "type": "textarea",
+          "id": "card_message",
+          "label": "Card message preview",
+          "default": "I wasn't sure if you were the one... until I realised I couldn't imagine my life without you."
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card preview image"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Card background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Link to product"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Choose This Card"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured card",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Message Cards",
+      "blocks": [
+        {
+          "type": "message_card",
+          "settings": {
+            "occasion_type": "dad-daughter",
+            "occasion_label": "From Dad",
+            "card_title": "To My Little Girl",
+            "card_message": "I can't promise to be here for the rest of your life, but I can promise to love you for the rest of mine."
+          }
+        },
+        {
+          "type": "message_card",
+          "settings": {
+            "occasion_type": "soulmate",
+            "occasion_label": "To My Soulmate",
+            "card_title": "My Person",
+            "card_message": "Meeting you was fate, becoming your friend was a choice, but falling in love with you was beyond my control."
+          }
+        },
+        {
+          "type": "message_card",
+          "settings": {
+            "occasion_type": "husband-wife",
+            "occasion_label": "To My Wife",
+            "card_title": "My Forever",
+            "card_message": "Thank you for standing by me. Thank you for loving me. Thank you for being my everything."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
