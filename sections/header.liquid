@@ -89,7 +89,7 @@
   
   {% if topbar %}
 	<div {% if ss_item.header_hidetopbar %} class="d-lg-block d-none"{% endif %}>
-	  {% include 'header-topbar' %}
+	  {% render 'header-topbar' %}
 	</div>
   {% endif %}
   
@@ -116,7 +116,7 @@
 				  {% assign logo_alt = ss_item.logo_main.alt | default: shop.name %}
 				  {% assign logo_src = ss_item.logo_main | img_url: logo_size, crop:'center' %}
 				  <div>
-					{% include 'logo' slogan: logo_slogan, logo_t: logo_type, logo_image: ss_item.logo_main, max_w: logo_width, src: logo_src, alt: logo_alt %}
+					{% render 'logo' slogan: logo_slogan, logo_t: logo_type, logo_image: ss_item.logo_main, max_w: logo_width, src: logo_src, alt: logo_alt %}
 				  </div>
 				</div>
 			  </div>
@@ -190,7 +190,7 @@
 	
 	<div class="{% if header_abs %}header-absolute inverted {% endif %}{% unless header_abs %}{% if ss_item.inverted_headermain %} inverted{% endif %}{% endunless %}"
 		 {% unless header_abs %}style="background-color: {{ ss_item.bg_headermain }};"{% endunless %}>
-	  	  {% include 'header-layout-2' %}
+	  	  {% render layout_file %}
 	</div>
   
   </div>
@@ -201,7 +201,7 @@
 	</div>
   {% endif %}
   
-  {% include "header-mobile" %}
+  {% render "header-mobile" %}
   
   {% if toggle_search %}
 	<div class="header_search header_search-with-toggle">
@@ -335,24 +335,8 @@
 	  "label": "Header Type",
 	  "options": [
 		{
-		  "value": "1",
-		  "label": "Type #1 (Upgrade your store with Vendy Pro theme)"
-		},
-		{
 		  "value": "2",
 		  "label": "Type #2"
-		},
-		{
-		  "value": "3",
-		  "label": "Type #3 (Upgrade your store with Vendy Pro theme)"
-		},
-		{
-		  "value": "4",
-		  "label": "Type #4 (Upgrade your store with Vendy Pro theme)"
-		},
-		{
-		  "value": "5",
-		  "label": "Type #5 (Upgrade your store with Vendy Pro theme)"
 		}
 	  ]
 	},

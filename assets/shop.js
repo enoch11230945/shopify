@@ -642,7 +642,7 @@ customElements.define('menu-drawer', MenuDrawer);
     "undefined" == typeof Shopify && (Shopify = {}),
         Shopify.money_format = "$ {{amount}}",
         Shopify.onError = function (XMLHttpRequest, textStatus) {
-            var data = eval("(" + XMLHttpRequest.responseText + ")");
+            var data = JSON.parse(XMLHttpRequest.responseText);
             alert(data.message + "(" + data.status + "): " + data.description)
         },
         Shopify.onCartUpdate = function (t) {
@@ -767,7 +767,7 @@ customElements.define('menu-drawer', MenuDrawer);
                 error: function (t, o) {
                     Shopify.onError(t, o);
 
-                    var errorData = eval('(' + t.responseText + ')');
+                    var errorData = JSON.parse(t.responseText);
 
                     body.append('<div id="cart_added" class="cart_error"><h4></h4><p class="alert alert-error"></p></div>');
                     $('#cart_added h4').html(errorData.message);

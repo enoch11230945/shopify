@@ -7,7 +7,7 @@
 <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
     
 	<!-- Added by AVADA SEO Suite -->
-	{% include 'avada-seo' %}
+	{% render 'avada-seo' %}
 	<!-- /Added by AVADA SEO Suite -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,7 +54,7 @@
 	<![endif]-->
 	
 	<!-- CSS -->
-	{% include 'variables' %}
+	{% render 'variables' %}
 	{{ 'theme.css' | asset_url | stylesheet_tag }}
 	
 	{% if settings.rtl %}
@@ -167,9 +167,7 @@
 			  {% endunless %}
 			  
 			  {% unless template == 'index' %}
-				{% if settings.use_breadcrumbs %}
-				  {% include 'snippet-breadcrumbs' %}
-				{% endif %}
+				  {% render 'snippet-breadcrumbs' %}
 			  {% endunless %}
 			  
 			  {%- assign sidebar_on = false -%}
@@ -209,18 +207,7 @@
 	  {%- endif -%}
 		
 		
-		{% case settings.footer_type %}
-		  {% when '1' %}
-			  {% section 'footer-2' %}
-		  {% when '2' %}
-			  {% section 'footer-2' %}
-		  {% when '3' %}
-			  {% section 'footer-2' %}
-		  {% when '4' %}
-			  {% section 'footer-2' %}
-		  {% when '5' %}
-			  {% section 'footer-2' %}
-		{% endcase %}
+		{% section 'footer-2' %}
 		
 		{% if settings.show_compare %}
 		  <button type="button" id="compare_list">
@@ -238,7 +225,7 @@
 		</a>
 		
 		{% if settings.newsletter_popup_toggle %}
-		  {% include 'widget-newsletter-popup' %}
+		  {% render 'widget-newsletter-popup' %}
 		{% endif %}
 		
 		{% if settings.show_compare %}
@@ -257,7 +244,7 @@
 		  </div>
 		{% endif %}
 	  
-	  {%- include "include_script_js" -%}
+	  {%- render "include_script_js" -%}
 	  
 	  {%- if settings.hide_pb_toggle -%}
 		<style>
