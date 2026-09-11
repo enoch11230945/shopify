@@ -1,0 +1,11 @@
+{
+  "name": "shopify-theme-upload-tooling",
+  "private": true,
+  "scripts": {
+    "theme:check": "shopify theme check",
+    "theme:package": "shopify theme package"
+  },
+  "devDependencies": {
+    "@shopify/cli": "4.8.0"
+  }
+}
